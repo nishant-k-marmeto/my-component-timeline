@@ -1,0 +1,105 @@
+{{'marmeto-timeline.css' |  asset_url |  stylesheet_tag }}
+
+<div class="marmeto-timeline_maincontainer">
+	<div class="marmeto-timeline_section_line">
+	    <div> </div>
+	</div>
+
+ {% for block in section.blocks %}
+    <div class="marmeto-timeline_block marmeto-timeline-image-align-{{ block.settings.image_alignment }}">
+		    <div class="marmeto-timeline_text_container marmeto-timeline-text-alignment-{{ block.settings.text_alignment }}">
+		        <div class="marmeto-timeline_text">
+		            {{ block.settings.text }}
+		        </div>
+		        <div class="marmeto-timeline_para">
+		            {{ block.settings.paragraph }}
+		        </div>
+		    </div>
+	      <div class="dot">
+	        <div class="dot_child"> </div>
+	      </div>
+		    <div class="marmeto-timeline_image_container">
+			    {% render 'picture',class="timeline_image"
+	          mobileSrc: block.settings.select_image,
+	          desktopSrc: block.settings.select_image
+	        %}
+          {% render 'marmeto-image'
+            forloop: forloop,
+            desktopImage: block.settings.image_desktop,
+            mobileImage: block.settings.image_mobile,
+            imageClass: 'image-class',
+            pictureClass: 'marmeto-timeline_image'
+          %}
+		    </div>
+    </div>
+ {% endfor %}
+ </div>
+
+{% schema %}
+    {
+      "name": "timeline",
+      "tag": "section",
+      "settings": [],
+      "blocks": [
+        {
+          "type": "timeline",
+          "name": "timeline",
+          "settings": [
+            {
+              "type": "text",
+              "label": "Enter Text",
+              "id": "text"
+            },
+            {
+              "type": "richtext",
+              "label": "Enter Paragraph",
+              "id": "paragraph"
+            },
+            {
+              "type": "select",
+              "id": "text_alignment",
+              "label": "Text Alignment",
+              "options": [
+              {
+                "value": "left",
+                "label": "Left"
+              },
+              {
+                "value": "right",
+                "label": "Right"
+              }
+            ],
+                "default": "right"
+            },
+
+            {
+              "type": "image_picker",
+              "label": "select image",
+              "id": "mobile_image"
+            },
+            {
+              "type": "select",
+              "id": "image_alignment",
+              "label": "Image Alignment",
+              "options": [
+              {
+                "value": "row",
+                "label": "Left"
+              },
+              {
+                "value": "row-reverse",
+                "label": "Right"
+              }
+            ],
+                "default": "row"
+            }
+          ]
+        }
+      ],
+      "presets": [
+        {
+          "name": "TimeLine"
+        }
+      ]
+    }
+    {% endschema %}
